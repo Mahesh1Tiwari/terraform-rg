@@ -1,6 +1,6 @@
 name: "meri pahla workflow"
 
-on: 
+on:
  push: 
    branches: 
      - 'features/**'
