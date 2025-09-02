@@ -1,17 +1,17 @@
 name: "meri pahla workflow"
-on: 
- push: 
+on:
+ push:
    branches: 
      - 'features/**'
      - 'main'
      - 'hotfix/**'
 
- jobs: 
-   terraform:
-   name: terraform init to plan
-   runs-on: myrunner
-   steps:
-     - name: terraform init
-       run: echo terraform init
+jobs:
+  terraform:
+  name: terraform init to plan
+  runs-on: myrunner
+  steps:
+    - name: terraform init
+      run: echo terraform init
       
      
