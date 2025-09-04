@@ -26,9 +26,9 @@ jobs:
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: c48c7747-e1c2-45d1-8d4d-a18ef7d1da2c
+          tenant-id: a6395b74-f5d3-427b-b4c0-5a918ab2e374
+          subscription-id: 388a2121-d962-4059-8c36-c24d806cad40
 
       - name: Verify Azure Login
         run: az account show
