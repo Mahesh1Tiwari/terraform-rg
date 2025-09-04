@@ -1,43 +1,50 @@
-name: "meri pahla workflow"
+name: Terraform Deploy
 
 on:
   push:
-    branches: 
-      - 'main'
-      - 'features/**'
-      - 'hotfix/**'
+    branches:
+      - main
 
 permissions:
-  id-token: write   # OIDC token ke liye zaroori
-  contents: read
+  id-token: write   # Required for OIDC
+  contents: read    # Required for actions/checkout
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest   # myrunner ki jagah ubuntu-latest rakho jab tak self-hosted agent na ho
+    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      # Step 1: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: 1.8.5   # stable version, tum chahe to latest rakh sakte ho
-
-      - name: Azure Login (OIDC)
+      # Step 2: Azure Login via OIDC
+      - name: Azure Login
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Verify Azure Login
-        run: az account show
+      # Step 3: Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.8.5
 
+      # Step 4: Terraform Init
       - name: Terraform Init
         run: terraform init
 
+      # Step 5: Terraform Plan
       - name: Terraform Plan
         run: terraform plan
+
+      # Step 6: Terraform Apply (manual approval ke liye condition lagao)
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
+
 
 
   
