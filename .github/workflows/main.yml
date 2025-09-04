@@ -6,6 +6,9 @@ on:
       - 'features/**'
       - 'main'
       - 'hotfix/**'
+permissions:
+  id-token: write
+  contents: read 
 
 jobs:
   terraform: 
@@ -18,7 +21,17 @@ jobs:
         uses: little-core-labs/install-terraform@v2.0.0
         with:
            version: 'letest'
-          
+             
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+          client-id: c48c7747-e1c2-45d1-8d4d-a18ef7d1da2c
+          tenant-id: a6395b74-f5d3-427b-b4c0-5a918ab2e374
+          subscription-id: 388a2121-d962-4059-8c36-c24d806cad40
+
+  
+    
+               
           
  
 
