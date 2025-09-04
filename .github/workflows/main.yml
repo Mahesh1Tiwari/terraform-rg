@@ -8,10 +8,20 @@ on:
       - 'hotfix/**'
 
 jobs:
-  terraform:
-    name: terraform init to plan
+  terraform: 
     runs-on: myrunner
     steps:
-      - name: terraform init
-        run: echo terraform init
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
+        
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+           version: 'letest'
+          
+          
+ 
 
+    
+   
+          
