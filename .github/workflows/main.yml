@@ -3,31 +3,42 @@ name: "meri pahla workflow"
 on:
   push:
     branches: 
-      - 'features/**'
       - 'main'
+      - 'features/**'
       - 'hotfix/**'
+
 permissions:
-  id-token: write
-  contents: read 
+  id-token: write   # OIDC token ke liye zaroori
+  contents: read
 
 jobs:
-  terraform: 
-    runs-on: myrunner
+  terraform:
+    runs-on: ubuntu-latest   # myrunner ki jagah ubuntu-latest rakho jab tak self-hosted agent na ho
     steps:
       - name: Checkout
-        uses: actions/checkout@v5.0.0
-        
+        uses: actions/checkout@v3
+
       - name: Install Terraform
-        uses: little-core-labs/install-terraform@v2.0.0
+        uses: hashicorp/setup-terraform@v3
         with:
-           version: 'letest'
-             
-      - name: Azure Login
-        uses: Azure/login@v2.3.0
+          terraform_version: 1.8.5   # stable version, tum chahe to latest rakh sakte ho
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
         with:
-          client-id: c48c7747-e1c2-45d1-8d4d-a18ef7d1da2c
-          tenant-id: a6395b74-f5d3-427b-b4c0-5a918ab2e374
-          subscription-id: 388a2121-d962-4059-8c36-c24d806cad40
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Verify Azure Login
+        run: az account show
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
 
   
     
