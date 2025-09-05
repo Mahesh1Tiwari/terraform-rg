@@ -36,11 +36,25 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -out=tfplan
 
-      # Step 6: Terraform Apply
-      - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
-
-         
+   
+  ManualValidation:
+    runs-on: ubuntu-latest
+    needs: terraform
+    steps:
+    - name: Manual Workflow Approval
+      uses: trstringer/manual-approval@v1.9.0
+      with:
+        approvers: mahesh1.iwari
+        secret: ${{ secrets.APPROVAL_SECRET }}
+        minimum-approvals: 1
+        
+  Deployment: 
+    runs-on: myrunner
+    steps:
+     - name: Terraform Apply
+       run: terraform apply -auto-approve tfplan
+        
+     
     
 
   
