@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
+    runs-on: myrunner
 
     steps:
       # Step 1: Checkout repo
