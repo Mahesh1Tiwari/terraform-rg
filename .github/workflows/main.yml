@@ -65,10 +65,8 @@ jobs:
       # Step 3: Terraform Init
       - name: Terraform Init
         run: terraform init
-
-      # Step 4: Terraform Apply
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve
 
 
           
