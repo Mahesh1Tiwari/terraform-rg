@@ -19,11 +19,11 @@ jobs:
     steps:
       # Step 1: Checkout repo
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/upload-artifact@v4
 
       # Step 2: Azure Login via OIDC
       - name: Azure Login
-        uses: azure/login@v2.3.0
+        uses: actions/upload-artifact@v4
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -39,7 +39,7 @@ jobs:
 
       # Save plan file for next job
       - name: Upload plan
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tfplan
           path: tfplan
@@ -52,7 +52,7 @@ jobs:
     steps:
       # Step 1: Checkout repo
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/upload-artifact@v4
 
       # Step 2: Azure Login via OIDC
       - name: Azure Login
