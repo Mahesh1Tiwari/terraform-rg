@@ -62,6 +62,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       # Step 4: Terraform Init
      - name: Terraform apply
+     - name: Terraform Init
        run: terraform apply -auto-approve
         
 
