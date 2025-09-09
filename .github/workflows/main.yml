@@ -1,4 +1,4 @@
-name: Terraform Deploy
+name: Terraform 
 
 on:
   push:
@@ -31,12 +31,6 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-
-      - name: Upload plan
-        uses: actions/upload-artifact@v4
-        with:
-          name: tfplan
-          path: tfplan
 
   Deployment:
     runs-on: runner1
