@@ -1,4 +1,4 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "mahesh-rg"
+  name     = "Tiwari-rg"
   location = "West Europe"
 }
